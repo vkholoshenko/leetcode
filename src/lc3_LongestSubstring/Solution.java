@@ -1,19 +1,29 @@
 package lc3_LongestSubstring;
 
-import java.util.HashSet;
-
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        int best = 0;
-        for (int i = 0; i < s.length(); i++) {
-            HashSet<Character> found = new HashSet<>();
-            for (int j = i; j < s.length(); j++) {
-                if (found.contains(s.charAt(j))) {
-                    break;
+        if (s.equals("")) {
+            return 0;
+        }
+
+        boolean[] found = new boolean[255];
+        found[s.charAt(0)] = true;
+        int best = 1;
+        int startIndex = 0, endIndex = 1;
+
+        while (endIndex < s.length()) {
+            if (found[s.charAt(endIndex)]) {
+                while (s.charAt(startIndex) != s.charAt(endIndex)) {
+                    found[s.charAt(startIndex)] = false;
+                    startIndex++;
                 }
-                found.add(s.charAt(j));
-                if (found.size() > best) {
-                    best = found.size();
+                startIndex++;
+                endIndex++;
+            } else {
+                found[s.charAt(endIndex)] = true;
+                endIndex++;
+                if (endIndex - startIndex > best) {
+                    best = endIndex - startIndex;
                 }
             }
         }

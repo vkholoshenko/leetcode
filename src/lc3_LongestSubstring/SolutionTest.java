@@ -11,4 +11,9 @@ class SolutionTest {
         Solution s = new Solution();
         assertEquals(3, s.lengthOfLongestSubstring("abcabcbb"));
     }
+    @Test
+    void lengthOfLongestSubstring2() {
+        Solution s = new Solution();
+        assertEquals(1, s.lengthOfLongestSubstring("aaaaaaaa"));
+    }
 }
