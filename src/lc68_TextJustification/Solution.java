@@ -1,4 +1,8 @@
 package lc68_TextJustification;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 Given an array of words and a width maxWidth, format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.
 
