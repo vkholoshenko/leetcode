@@ -11,7 +11,32 @@ Output: 1
 Explanation: The palindrome partitioning ["aa","b"] could be produced using 1 cut.
  */
 class Solution {
+
     public int minCut(String s) {
+        int n = s.length();
+        int[] pls = new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; i-j >= 0 && i+j < n && s.charAt(i-j) == s.charAt(i+j); j++) {
+                pls[i-j] = Math.max(pls[i-j], j*2);
+            }
+            for (int j = 0; i-j >=0 && i+j+1 <n && s.charAt(i-j) == s.charAt(i+j+1); j++) {
+                pls[i-j] = Math.max(pls[i-j], j*2+1);
+            }
+        }
+
+        int[] dp = new int[s.length()];
+        for (int i = 1; i < n; i++) dp[i] = i;
+
+        dp[pls[0]] = dp[0];
+        for (int i = 1; i < n; i++) {
+            int t = dp[i-1] + 1;
+            if (dp[i] > t) dp[i] = t;
+            if (dp[i + pls[i]] > t) dp[i + pls[i]] = t;
+        }
+        return dp[n-1];
+    }
+
+    public int minCut_old(String s) {
         int n = s.length();
         if (n < 2) return 0;
         if (n == 2) {
